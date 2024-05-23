@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Система автоматического формирования и визуализации отчетов</title>
+</head>
+<body>
+    <h1>Система автоматического формирования и визуализации отчетов</h1>
+    <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+        <label for="file">Выберите файл:</label>
+        <input type="file" id="file" name="file">
+        <button type="submit">Загрузить файл</button>
+    </form>
+    <form action="/generate_report" method="post">
+        <label for="template_id">Выберите шаблон отчета:</label>
+        <select id="template_id" name="template_id">
+            <!-- Здесь должны быть опции с идентификаторами шаблонов отчетов -->
+        </select>
+        <button type="submit">Сгенерировать отчет</button>
+    </form>
+    <form action="/visualize_report" method="post">
+        <label for="visualization_template_id">Выберите шаблон визуализации:</label>
+        <select id="visualization_template_id" name="visualization_template_id">
+            <!-- Здесь должны быть опции с идентификаторами шаблонов визуализации -->
+        </select>
+        <button type="submit">Визуализировать отчет</button>
+    </form>
+    <!-- Здесь может быть место для отображения результатов визуализации -->
+</body>
+</html>

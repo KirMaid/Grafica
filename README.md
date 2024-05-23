@@ -21,7 +21,7 @@ Project structure:
 
 ```
 
-[_compose.yaml_](compose.yaml)
+[_compose.yaml_](compose-prod.yaml)
 ```
 services:
   backend:

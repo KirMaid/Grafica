@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 import mysql.connector
 
 
@@ -9,7 +9,7 @@ class DBManager:
         self.connection = mysql.connector.connect(
             user=user, 
             password=pf.read(),
-            host=host, # name of the mysql service as set in the docker compose file
+            host=host,
             database=database,
             auth_plugin='mysql_native_password'
         )
@@ -30,21 +30,25 @@ class DBManager:
         return rec
 
 
-server = Flask(__name__)
+server = Flask(__name__,template_folder = "templates")
 conn = None
 
-@server.route('/')
-def listBlog():
-    global conn
-    if not conn:
-        conn = DBManager(password_file='/run/secrets/db-password')
-        conn.populate_db()
-    rec = conn.query_titles()
+# @server.route('/')
+# def listBlog():
+#     global conn
+#     if not conn:
+#         conn = DBManager(password_file='/run/secrets/db-password')
+#         conn.populate_db()
+#     rec = conn.query_titles()
+#
+#     response = ''
+#     for c in rec:
+#         response = response  + '<div>   Hello  ' + c + '</div>'
+#     return response
 
-    response = ''
-    for c in rec:
-        response = response  + '<div>   Hello  ' + c + '</div>'
-    return response
+@server.route('/')
+def index():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':

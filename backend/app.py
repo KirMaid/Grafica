@@ -14,8 +14,7 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     file = request.files['file']
-    file_path = file.filename  # Сохраняем имя файла как путь к файлу
-    # Здесь должна быть логика сохранения пути к файлу в базе данных
+    file_path = file.filename
     new_report = ReportTemplate(name=file_path, content=file_path, json_file_path=file_path)
     db.session.add(new_report)
     db.session.commit()
