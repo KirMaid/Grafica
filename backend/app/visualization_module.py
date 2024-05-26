@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from models import VisualizationTemplate
+from backend.app.models import VisualizationTemplate
 
 
 def visualize_report(report_content, visualization_template_id):

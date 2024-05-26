@@ -1,5 +1,5 @@
 import pandas as pd
-from models import ReportTemplate
+from backend.app.models import ReportTemplate
 
 
 def generate_report(file_path, template_id):
