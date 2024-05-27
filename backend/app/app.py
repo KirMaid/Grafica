@@ -1,11 +1,16 @@
 from flask import Flask, request, render_template
-from backend.app.models import db, ReportTemplate, VisualizationTemplate
+from backend.app import models
 from report_generator import generate_report
 from visualization_module import visualize_report
-from backend import create_db
+# from backend.app import create_db
+import pandas as pd
+import matplotlib.pyplot as plt
+import plotly.express as px
+import io
+import base64
 
 app = Flask(__name__)
-db.init_app(app)
+# db.init_app(app)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -29,6 +34,18 @@ def add_visualization():
     db.session.commit()
     return "Новая визуализация успешно добавлена"
 
+
+def show():
+    df = pd.read_csv('data.csv')
+    fig = px.line(df, x='date', y='value', title='Данные из CSV-файла')
+    graph_bytes = io.BytesIO()
+    fig.write_image(graph_bytes, format='png')
+    graph_bytes.seek(0)
+    graph_url = base64.b64encode(graph_bytes.getvalue()).decode()
+
+    return render_template('grafic.html', graph_url=graph_url)
+
+
 if __name__ == '__main__':
-    create_db()
+    # create_db()
     app.run(debug=True)
